@@ -11,3 +11,5 @@ class KeyboardMonitor:
         Thread(None, keyboard.wait()).start()
 
 
+if __name__ == '__main__':
+    KeyboardMonitor('v', lambda _: print('press'))

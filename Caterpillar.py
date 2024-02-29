@@ -1,5 +1,5 @@
-from ultralytics import YOLO
-
+from functions.CampFunction import CampFunction
 
 if __name__ == '__main__':
-    pass
+    CampFunction()
+v
