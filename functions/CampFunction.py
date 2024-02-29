@@ -3,7 +3,7 @@ import time
 from utils.KeyboardMonitor import KeyboardMonitor
 from ultralytics import YOLO
 
-person_model = YOLO("yolov8n.pt")
+person_model = YOLO("models/yolov8n.pt")
 
 
 def camp(_):
