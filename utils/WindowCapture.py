@@ -2,7 +2,7 @@ import time
 import win32gui, win32ui, win32con, win32api
 
 
-def window_capture(filename=None):
+def window_capture(filename):
     hwnd = 0  # 窗口的编号，0号表示当前活跃窗口
     # 根据窗口句柄获取窗口的设备上下文DC（Divice Context）
     hwndDC = win32gui.GetWindowDC(hwnd)
@@ -23,14 +23,19 @@ def window_capture(filename=None):
     saveDC.SelectObject(saveBitMap)
     # 截取从左上角（0，0）长宽为（w，h）的图片
     saveDC.BitBlt((0, 0), (w, h), mfcDC, (0, 0), win32con.SRCCOPY)
-    if filename is not None:
-        saveBitMap.SaveBitmapFile(saveDC, filename)
-    return saveDC
+    saveBitMap.SaveBitmapFile(saveDC, filename)
 
+
+def callback(hwnd, hwnd_list):
+    hwnd_list.append(hwnd)
 
 if __name__ == '__main__':
-    beg = time.time()
-    for i in range(10):
-        window_capture("haha.jpg")
-    end = time.time()
-    print(end - beg)
+    hwnd_list = []
+    win32gui.EnumWindows(callback, hwnd_list)
+
+    window_list = []
+    for hwnd in hwnd_list:
+        window_test = win32gui.GetWindowText(hwnd)
+        window_list.append((hwnd, window_test))
+
+    print()

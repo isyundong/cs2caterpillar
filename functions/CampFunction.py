@@ -1,14 +1,18 @@
 import time
 
 from utils.KeyboardMonitor import KeyboardMonitor
+from utils.WindowCapture import window_capture
 from ultralytics import YOLO
 
 person_model = YOLO("models/yolov8n.pt")
 
 
 def camp(_):
-    # person_model.cuda()
-    result = person_model("C:\\Users\yundong.zhang\\Downloads\\1.jpg")[0]
+    img_file = f'{time.time_ns()}.jpg'
+
+    window_capture(img_file)
+
+    result = person_model(img_file)[0]
     xywh = None
     max_score = 0
     if result.boxes is not None:
